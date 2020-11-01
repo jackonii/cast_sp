@@ -1,5 +1,3 @@
-# cast_sp
-
 Spotify app cast to Chromecast with simple token refresh mechanism.
 =
 
