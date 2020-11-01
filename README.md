@@ -1,7 +1,7 @@
 Spotify app cast to Chromecast with simple token refresh mechanism.
 =
 
-It is nothing sophisticated, but it works. SP Token is valid for 1h. Ten minutes earlier token is being refreshed. Current app on Chromecast is being replaced by new one with valid token. Script is waiting with app replacing till current track is over (unless track ends within 595 sec).
+It is nothing sophisticated, but it works. SP Token is valid for 1h. Ten minutes earlier token is being refreshed. Current app on Chromecast is being replaced by new one with valid token. Script is waiting with app replacing till current track is over (unless track will not end within 595 sec).
 
 You have to add:
 
