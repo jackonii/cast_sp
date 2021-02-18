@@ -38,7 +38,7 @@ def get_token(sp_dc, sp_key, force=False):
             data_file = json.load(file)
             sp_access_token = data_file['access_token']
             sp_expires = data_file['expires']
-            if sp_expires - time.time() < 5:  # If token expires within 5 min - go to generating of a new token
+            if sp_expires - time.time() < 0:  # If token expires go to generating of a new token
                 raise NoValidToken
     # If token is out-of-date or no file found
     except (NoValidToken, FileNotFoundError):
@@ -164,9 +164,9 @@ client.repeat('context')  # Repeat whole playlist
 pychromecast.discovery.stop_discovery(browser)
 
 while True:
-    token_refresh_interval = ((expires - time.time()) - 600)  # 600sec before token expires
-    # if token_refresh_interval < 10:
-    #     token_refresh_interval = 0
+    token_refresh_interval = expires - time.time()  # token expires
+    if token_refresh_interval < 0:
+        token_refresh_interval = 0
     logging.info(f"[TOKEN] Waiting until {time.ctime(time.time() + token_refresh_interval)} to refresh token")
     progressbar(token_refresh_interval)
     # Checking chromecast status
@@ -203,9 +203,9 @@ while True:
         sys.exit()
     # Checking current playback status
     time_left = (int(play['item']['duration_ms']) - int(play['progress_ms'])) / 1000
-    if time_left < 595 and play['is_playing'] is True:  # Track ends within 595sec and is not paused
-        logging.info(f"[SPOTI] Waiting till current track ends: {time_left} sec")
-        time.sleep(time_left + 0.5)  # Sleep till track ends
+    if time_left and play['is_playing'] is True:  # Track is in the middle of playing and is not paused
+        logging.info(f"[SPOTI] Waiting until current track ends: {time_left} sec")
+        time.sleep(time_left + 0.5)  # Sleep until track ends
 
     # Getting current player status
     play = client.current_playback()

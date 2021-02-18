@@ -9,7 +9,7 @@ You have to add:
 
 and
 
-    SP_DC = ""  # Data to be obtained from cookie
+    SP_DC = ""  # Data to be obtained from cookies
 
     SP_KEY = ""  # Check https://github.com/enriquegh/spotify-webplayer-token/ for how to obtain it.
 
